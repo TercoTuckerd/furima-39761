@@ -2,63 +2,63 @@
 
 ## users テーブル
 
-| Column             | Type    | Options             |
-| ------------------ | ------- | ------------------- |
-| nickname           | string  | null: false         |
-| email              | string  | null: false         |
-| encrypted_password | string  | null: false         |
-| name               | string  | null: false         |
-| birth_year         | integer | null: false         |
-| birth_month        | integer | null: false         |
-| birth_day          | integer | null: false         |
+| Column             | Type     | Options             |
+| ------------------ | -------- | ------------------- |
+| nickname           | string   | null: false         |
+| email              | string   | null: false, unique |
+| encrypted_password | string   | null: false         |
+| first_name         | string   | null: false         |
+| family_name        | string   | null: false         |
+| first_name_kana    | string   | null: false         |
+| family_name_kana   | string   | null: false         |
+| birthday           | datetime | null: false         |
 
 ### Association
 
 - has_many :comments
-- has_many :merchs
-- has_one  :purchase
+- has_many :items
+- has_one  :buyer
 
-## merchs テーブル
+## items テーブル
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| product_name | string     | null: false                    |
+| item_name    | string     | null: false                    |
 | explanation  | text       | null: false                    |
-| category     | integer    | null: false                    |
-| condition    | integer    | null: false                    |
-| charge       | integer    | null: false                    |
-| area         | integer    | null: false                    |
-| wait         | integer    | null: false                    |
+| category_id  | integer    | null: false                    |
+| condition_id | integer    | null: false                    |
+| charge_id    | integer    | null: false                    |
+| area_id      | integer    | null: false                    |
+| wait_id      | integer    | null: false                    |
 | price        | integer    | null: false                    |
 | user         | references | null: false, foreign_key: true |
+| buyer        | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :comments
+- belongs_to :buyer
 
 ## comments テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
 | content | text       | null: false                    |
-| merch   | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 | user    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :merch
+- belongs_to :item
 
-##  purchasesテーブル
+##  buyersテーブル
 
 | Column      | Type       | Options                        |
 | ----------- | ---------- | ------------------------------ |
-| card_number | integer    | null: false                    |
-| card_expiry | datetim    | null: false                    |
-| card_cvc    | integer    | null: false                    |
 | post_code   | string     | null: false                    |
-| prefectures | integer    | null: false                    |
+| area_id     | integer    | null: false                    |
 | cities      | string     | null: false                    |
 | address     | string     | null: false                    |
 | building    | string     |                                |
@@ -68,3 +68,4 @@
 ### Association
 
 - belongs_to :user
+- has_many :items
