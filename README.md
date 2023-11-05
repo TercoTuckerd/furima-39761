@@ -5,18 +5,19 @@
 | Column             | Type     | Options             |
 | ------------------ | -------- | ------------------- |
 | nickname           | string   | null: false         |
-| email              | string   | null: false, unique |
+| e-mail             | string   | null: false, unique |
 | encrypted_password | string   | null: false         |
 | first_name         | string   | null: false         |
 | family_name        | string   | null: false         |
 | first_name_kana    | string   | null: false         |
 | family_name_kana   | string   | null: false         |
-| birthday           | date     | null: false         |
+| birth_day          | date     | null: false         |
 
 ### Association
 
 - has_many :comments
 - has_many :items
+- has_many :orders
 
 ## items テーブル
 
@@ -36,6 +37,7 @@
 
 - belongs_to :user
 - has_many :comments
+- has_one  :order
 
 ## comments テーブル
 
@@ -60,6 +62,7 @@
 | address     | string     | null: false                    |
 | building    | string     |                                |
 | phone       | string     | null: false                    |
+| order       | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -74,4 +77,6 @@
 
 ### Association
 
-- has_one :buyer
+- has_many :buyers
+- belongs_to :user
+- belongs_to :item
