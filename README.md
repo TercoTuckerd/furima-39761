@@ -11,13 +11,12 @@
 | family_name        | string   | null: false         |
 | first_name_kana    | string   | null: false         |
 | family_name_kana   | string   | null: false         |
-| birthday           | datetime | null: false         |
+| birthday           | date     | null: false         |
 
 ### Association
 
 - has_many :comments
 - has_many :items
-- has_one  :buyer
 
 ## items テーブル
 
@@ -32,13 +31,11 @@
 | wait_id      | integer    | null: false                    |
 | price        | integer    | null: false                    |
 | user         | references | null: false, foreign_key: true |
-| buyer        | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :comments
-- belongs_to :buyer
 
 ## comments テーブル
 
@@ -63,9 +60,18 @@
 | address     | string     | null: false                    |
 | building    | string     |                                |
 | phone       | string     | null: false                    |
-| user        | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
-- has_many :items
+- belongs_to :order
+
+##  ordersテーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| item    | references | null: false, foreign_key: true |
+| user    | references | null: false, foreign_key: true |
+
+### Association
+
+- has_one :buyer
