@@ -5,7 +5,7 @@
 | Column             | Type     | Options                   |
 | ------------------ | -------- | ------------------------- |
 | nickname           | string   | null: false               |
-| e_mail             | string   | null: false, unique: true |
+| email              | string   | null: false, unique: true |
 | encrypted_password | string   | null: false               |
 | first_name         | string   | null: false               |
 | family_name        | string   | null: false               |
@@ -58,7 +58,7 @@
 | ----------- | ---------- | ------------------------------ |
 | post_code   | string     | null: false                    |
 | area_id     | integer    | null: false                    |
-| cities      | string     | null: false                    |
+| city        | string     | null: false                    |
 | address     | string     | null: false                    |
 | building    | string     |                                |
 | phone       | string     | null: false                    |
@@ -77,6 +77,6 @@
 
 ### Association
 
-- has_one :buyers
+- has_one :buyer
 - belongs_to :user
 - belongs_to :item
