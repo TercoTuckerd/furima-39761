@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :family_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
   validates :birth_day, presence: true
 
-  has_many :items, dependent: :destroy
+  has_many :items
   #has_many :comments, dependent: :destroy
   #has_many :orders, dependent: :destroy
 end
