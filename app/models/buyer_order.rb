@@ -5,12 +5,15 @@ class BuyerOrder
   with_options presence: true do
     validates :item_id
     validates :user_id
-    validates :token
-    validates :post_code, presence: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)"}
+    validates :token, presence: true
     validates :area_id, numericality: { other_than: 1 , message: "can't be blank"}
     validates :city, presence: true
     validates :address, presence: true
-    validates :phone, presence: true, format: { with: /\A\d{10,11}\z/, length: {maximum: 11},message: "is invalid. Input only number"}
+  end
+
+  with_options presence: true do
+    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, allow_blank: true, message: "is invalid. Enter it as follows (e.g. 123-4567)"}
+    validates :phone, format: { with: /\A\d{10,11}\z/, length: {maximum: 11}, allow_blank: true, message: "is invalid. Input only number"}
   end
 
   def save(params,user_id)
