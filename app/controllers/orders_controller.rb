@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: [:index, :create, :correct_order]
   before_action :authenticate_user!, only: [:index]
   before_action :correct_order, only: [:index]
 
   def index
-    @item = Item.find(params[:item_id])
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @buyerorder = BuyerOrder.new
   end
@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
       @buyerorder.save(params,current_user.id)
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render :index, status: :unprocessable_entity
     end
@@ -26,8 +25,11 @@ private
     params.require(:buyer_order).permit(:post_code, :area_id, :city, :address, :building, :phone).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
   end
 
-  def correct_order
+  def set_order
     @item = Item.find(params[:item_id])
+  end
+
+  def correct_order
     if @item.user_id == current_user.id || @item.order != nil
       redirect_to root_path
     end
