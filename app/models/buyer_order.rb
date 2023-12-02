@@ -13,7 +13,7 @@ class BuyerOrder
     validates :phone, format: { with: /\A\d{10,11}\z/, length: {maximum: 11}, allow_blank: true, message: "is invalid. Input only number"}
   end
 
-  def save(params,user_id)
+  def save
     order = Order.create(item_id: item_id, user_id: user_id)
     Buyer.create(post_code: post_code, area_id: area_id, city: city, address: address, building: building, phone: phone, order_id: order.id)
   end

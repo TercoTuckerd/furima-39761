@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     @buyerorder = BuyerOrder.new(order_params)
     if @buyerorder.valid?
       pay_item
-      @buyerorder.save(params,current_user.id)
+      @buyerorder.save
       redirect_to root_path
     else
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
