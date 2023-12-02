@@ -52,5 +52,8 @@ class ItemsController < ApplicationController
     unless @item.user_id == current_user.id
       redirect_to action: :index
     end
+    unless @item.user_id != current_user.id || @item.order == nil
+      redirect_to root_path
+    end
   end
 end
